@@ -86,15 +86,15 @@ export default class Tokenizer {
   // 6. $$ as a string seperator
   createStringPattern(stringTypes) {
     const patterns = {
-      "``": "((`[^`]*($|`))+)",
-      "[]": "((\\[[^\\]]*($|\\]))(\\][^\\]]*($|\\]))*)",
-      "\"\"": "((\"[^\"\\\\]*(?:\\\\.[^\"\\\\]*)*(\"|$))+)",
+      '``': '((`[^`]*($|`))+)',
+      '[]': '((\\[[^\\]]*($|\\]))(\\][^\\]]*($|\\]))*)',
+      '""': '(("[^"\\\\]*(?:\\\\.[^"\\\\]*)*("|$))+)',
       "''": "(('[^'\\\\]*(?:\\\\.[^'\\\\]*)*('|$))+)",
       "N''": "((N'[^N'\\\\]*(?:\\\\.[^N'\\\\]*)*('|$))+)",
-      "$$": "((\\$\\$[^\\$]*($|\\$\\$))+)"
+      $$: '((\\$\\$[^\\$]*($|\\$\\$))+)'
     };
 
-    return stringTypes.map(t => patterns[t]).join("|");
+    return stringTypes.map(t => patterns[t]).join('|');
   }
   createParenRegex(parens) {
     return new RegExp('^(' + parens.map(p => this.escapeParen(p)).join('|') + ')', 'iu');

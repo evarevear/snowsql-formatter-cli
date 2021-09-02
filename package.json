@@ -4,6 +4,9 @@
   "description": "Formats whitespace in a SQL query to make it more readable",
   "license": "MIT",
   "main": "lib/sqlFormatter.js",
+  "bin": {
+    "hello": "./bin/index.js"
+  },
   "keywords": [
     "sql",
     "formatter",
@@ -45,6 +48,7 @@
   },
   "dependencies": {
     "@babel/polyfill": "^7.7.0",
+    "argparse": "^2.0.1",
     "lodash": "^4.17.15"
   },
   "devDependencies": {
@@ -74,5 +78,5 @@
   "directories": {
     "lib": "lib",
     "test": "test"
-  }
+  } 
 }

@@ -527,8 +527,8 @@ export default function behavesLikeSqlFormatter(language) {
     `);
   });
 
-  it("formats $$ correctly", function() {
-    const result = format(dedent/* sql */`
+  it('formats $$ correctly', function() {
+    const result = format(dedent/* sql */ `
       CREATE
       OR REPLACE FUNCTION RECURSION_TEST (STR VARCHAR) RETURNS VARCHAR LANGUAGE JAVASCRIPT AS $$
       return (STR.length <= 1
@@ -536,7 +536,7 @@ export default function behavesLikeSqlFormatter(language) {
       $$;
     `);
 
-    expect(result).toBe(dedent/* sql */`
+    expect(result).toBe(dedent/* sql */ `
       CREATE
       OR REPLACE FUNCTION RECURSION_TEST (STR VARCHAR) RETURNS VARCHAR LANGUAGE JAVASCRIPT AS $$
       return (STR.length <= 1
@@ -545,11 +545,11 @@ export default function behavesLikeSqlFormatter(language) {
     `);
   });
 
-  it("formats => correctly", function() {
+  it('formats => correctly', function() {
     const result = format(
       `select seq4(), uniform(1, 10, random(12)) from table(generator(rowcount => 11000)) v`
     );
-    expect(result).toBe(dedent/* sql */`
+    expect(result).toBe(dedent/* sql */ `
       select
         seq4(),
         uniform(1, 10, random(12))
