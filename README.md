@@ -1,10 +1,10 @@
-# SnowSQL Formatter
+# SnowSQL Formatter CLI
 
-A fork of [sql-formatter-plus](https://github.com/kufii/sql-formatter-plus) with some Snowflake specific syntaxes.
+A fork of [snowsql-formatter](https://github.com/Snowflake-Labs/snowsql-formatter) to add a CLI tool to the original package
 
 New Features:
 
-- Recognize JSON references
+- Usage as CLI tool
 
 **SQL Formatter** is a JavaScript library for pretty-printing SQL queries.
 It started as a port of a [PHP Library][], but has since considerably diverged.
@@ -17,35 +17,56 @@ It supports [Standard SQL][], [Couchbase N1QL][], [IBM DB2][] and [Oracle PL/SQL
 Get the latest version from NPM:
 
 ```shell
-npm install snowsql-formatter
+npm install snowsql-formatter-cli
 ```
 
-## Usage
+## Usage (from CLI)
 
-```javascript
-import sqlFormatter from 'snowsql-formatter';
+The CLI tool will be installed under `snowsql-formatter`
+and may be invoked via `npx snowsql-formatter`:
 
-console.log(sqlFormatter.format('SELECT * FROM table1'));
+```sh
+snowsql-formatter -h
 ```
 
-This will output:
+```
+usage: snowsql-formatter [-h] [-o OUTPUT] [-l {db2,mariadb,mysql,n1ql,plsql,postgresql,redshift,spark,sql,tsql}]
+                     [-i N | -t] [-u] [--lines-between-queries N] [--version] [FILE]
+
+SQL Formatter
+
+positional arguments:
+  FILE                  Input SQL file (defaults to stdin)
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -o OUTPUT, --output OUTPUT
+                        File to write SQL output (defaults to stdout)
+  -l {db2,mariadb,mysql,n1ql,plsql,postgresql,redshift,spark,sql,tsql},
+  --language {db2,mariadb,mysql,n1ql,plsql,postgresql,redshift,spark,sql,tsql}
+                        SQL Formatter dialect (defaults to basic sql)
+  -i N, --indent N      Number of spaces to indent query blocks (defaults to 2)
+  -t, --tab-indent      Indent query blocks with tabs instead of spaces
+  -u, --uppercase       Capitalize language keywords
+  --lines-between-queries N
+                        How many newlines to insert between queries (separated by ";")
+  --version             show program's version number and exit
+```
+
+By default, the tool takes queries from stdin and processes them to stdout but
+one can also name an input file name or use the `--output` option.
+
+```sh
+echo 'select * from tbl where id = 3' | snowsql-formatter -u
+```
 
 ```sql
 SELECT
   *
 FROM
-  table1
-```
-
-You can also pass in configuration options:
-
-```javascript
-sqlFormatter.format('SELECT *', {
-  language: 'n1ql', // Defaults to "sql"
-  indent: '    ', // Defaults to two spaces,
-  uppercase: true, // Defaults to false
-  linesBetweenQueries: 2 // Defaults to 1
-});
+  tbl
+WHERE
+  id = 3
 ```
 
 Currently just four SQL dialects are supported:
@@ -54,50 +75,6 @@ Currently just four SQL dialects are supported:
 - **n1ql** - [Couchbase N1QL][]
 - **db2** - [IBM DB2][]
 - **pl/sql** - [Oracle PL/SQL][]
-
-### Placeholders replacement
-
-```javascript
-// Named placeholders
-sqlFormatter.format("SELECT * FROM tbl WHERE foo = @foo", {
-  params: {foo: "'bar'"}
-}));
-
-// Indexed placeholders
-sqlFormatter.format("SELECT * FROM tbl WHERE foo = ?", {
-  params: ["'bar'"]
-}));
-```
-
-Both result in:
-
-```sql
-SELECT
-  *
-FROM
-  tbl
-WHERE
-  foo = 'bar'
-```
-
-## Usage without NPM
-
-If you don't use a module bundler, clone the repository, run `npm install` and grab a file from `/dist` directory to use inside a `<script>` tag.
-This makes SQL Formatter available as a global variable `window.sqlFormatter`.
-
-## Contributing
-
-```shell
-# run linter and tests
-npm run check
-```
-
-...and you're ready to poke us with a pull request.
-
-## Next Steps
-
-- Add a `snowsql` dialect
-- Add support for SnowSQL specific keywords and constructs
 
 ## License
 
