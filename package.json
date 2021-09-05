@@ -1,11 +1,11 @@
 {
-  "name": "snowsql-formatter",
-  "version": "1.1.0",
+  "name": "snowsql-formatter-cli",
+  "version": "1.0.1",
   "description": "Formats whitespace in a SQL query to make it more readable",
   "license": "MIT",
   "main": "lib/sqlFormatter.js",
   "bin": {
-    "hello": "./bin/index.js"
+    "snowsql-formatter": "./bin/index.js"
   },
   "keywords": [
     "sql",
@@ -78,5 +78,5 @@
   "directories": {
     "lib": "lib",
     "test": "test"
-  } 
+  }
 }
